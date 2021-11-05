@@ -1,28 +1,22 @@
 import React from 'react';
-import { ScaledSize, Dimensions, SafeAreaView, View } from 'react-native';
+import { View, Text } from 'react-native';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
-import StyleGlobal from './_Project/resource/style/styleGlobal';
-import Global from './_Project/application/constant/_global';
-import PageWelcome from './_Project/application/page/welcome';
-
-export default class App extends React.Component<any, any> {
+/**
+ * 欢迎页
+ */
+export default class Welcome extends React.Component<any, any> {
     public readonly state: any = { // 状态
-        page: PageWelcome // 页面
     };
     private readonly event: any = { // 事件
-        change: null // 修改
     };
     
     //---------- 生命周期 Start ----------//
     /**
      * 组件挂载
      */
-    public componentDidMount(): void {
-        this.event.change = Dimensions.addEventListener('change', (info: { screen: ScaledSize, window: ScaledSize }) => {
-            Global.WindowWidth = info.window.width;
-            Global.WindowHeight = info.window.height;
-        });
-    }
+    // public componentDidMount(): void {
+    // }
     
     /**
      * 是否组件更新
@@ -43,9 +37,8 @@ export default class App extends React.Component<any, any> {
     /**
      * 组件卸载
      */
-    public componentWillUnmount(): void {
-        this.event.change.remove();
-    }
+    // public componentWillUnmount(): void {
+    // }
     
     /**
      * 组件报错
@@ -58,10 +51,11 @@ export default class App extends React.Component<any, any> {
     //---------- 生命周期 End ----------//
     
     public render(): React.ReactNode {
-        return <SafeAreaView style={ StyleGlobal.BaseView }>
-            <View style={ StyleGlobal.BodyView }>
-                <this.state.page />
-            </View>
-        </SafeAreaView>
+        return <View style={ {
+            backgroundColor: Colors.white,
+            height: '100%'
+        } }>
+            <Text>Welcome</Text>
+        </View>
     }
-};
+}
