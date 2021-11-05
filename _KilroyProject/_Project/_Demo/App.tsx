@@ -1,12 +1,15 @@
 import React, { ReactNode, ErrorInfo } from 'react';
-import { Dimensions, SafeAreaView, View } from 'react-native';
+import { Dimensions, SafeAreaView, ScaledSize, View } from 'react-native';
 
 import StyleGlobal from './_Project/resource/style/styleGlobal';
 import Global from './_Project/application/constant/_global';
 
 export default class App extends React.Component {
+    public readonly state: any = { // 状态
+        page: null as ReactNode // 页面
+    };
     private readonly event: any = { // 事件
-        change: null
+        change: null // 修改
     };
     
     //---------- 生命周期 Start ----------//
@@ -14,7 +17,7 @@ export default class App extends React.Component {
      * 组件挂载
      */
     public componentDidMount(): void {
-        this.event.change = Dimensions.addEventListener('change', (info) => {
+        this.event.change = Dimensions.addEventListener('change', (info: { screen: ScaledSize, window: ScaledSize }) => {
             Global.WindowWidth = info.window.width;
             Global.WindowHeight = info.window.height;
         });
@@ -49,7 +52,7 @@ export default class App extends React.Component {
     
     public render(): ReactNode {
         return <SafeAreaView style={ StyleGlobal.BaseView }>
-            <View style={ StyleGlobal.BodyView }/>
+            <View style={ StyleGlobal.BodyView }>{ this.state.page }</View>
         </SafeAreaView>
     }
 };
