@@ -1,16 +1,19 @@
 import { StyleSheet } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
-import Global from '../../application/constant/_global';
 
 export default StyleSheet.create({
-    BaseView: {
+    base: {
         backgroundColor: Colors.black,
         color: Colors.white,
-        height: '100%'
+        width: '100%',
+        height: '100%',
+        flex: 1
     },
-    BodyView: {
-        backgroundColor: Colors.dark,
+    body: {
+        backgroundColor: Colors.black,
         color: Colors.white,
-        height: Global.WindowHeight,
+        width: '100%',
+        height: '100%',
+        flex: 1
     }
 });

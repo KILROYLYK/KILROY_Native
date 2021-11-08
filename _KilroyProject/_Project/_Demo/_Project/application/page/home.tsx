@@ -1,31 +1,22 @@
 import React from 'react';
-import { ScaledSize, Dimensions, SafeAreaView, View } from 'react-native';
-
-import StyleGlobal from './_Project/resource/style/styleGlobal';
-import Global from './_Project/application/constant/_global';
-import PageWelcome from './_Project/application/page/welcome';
+import { StyleSheet, View } from 'react-native';
+import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 /**
- * 应用
+ * 首页
  */
-export default class App extends React.Component<any, any> {
+export default class Home extends React.Component<any, any> {
     public readonly state: any = { // 状态
-        page: PageWelcome // 页面
     };
     private readonly event: any = { // 事件
-        change: null // 修改
     };
     
     //---------- 生命周期 Start ----------//
     /**
      * 组件挂载
      */
-    public componentDidMount(): void {
-        this.event.change = Dimensions.addEventListener('change', (info: { screen: ScaledSize, window: ScaledSize }) => {
-            Global.WindowWidth = info.window.width;
-            Global.WindowHeight = info.window.height;
-        });
-    }
+    // public componentDidMount(): void {
+    // }
     
     /**
      * 是否组件更新
@@ -46,9 +37,8 @@ export default class App extends React.Component<any, any> {
     /**
      * 组件卸载
      */
-    public componentWillUnmount(): void {
-        this.event.change.remove();
-    }
+    // public componentWillUnmount(): void {
+    // }
     
     /**
      * 组件报错
@@ -65,10 +55,17 @@ export default class App extends React.Component<any, any> {
      * @return {ReactNode} 内容
      */
     public render(): React.ReactNode {
-        return <SafeAreaView style={ StyleGlobal.base }>
-            <View style={ StyleGlobal.body }>
-                <this.state.page />
-            </View>
-        </SafeAreaView>
+        return <View style={ style.container }>
+        </View>
     }
-};
+}
+
+/**
+ * 样式
+ */
+const style = StyleSheet.create({
+    container: {
+        backgroundColor: Colors.black,
+        height: '100%'
+    }
+});
