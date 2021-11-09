@@ -1,5 +1,5 @@
 import React from 'react';
-import { ScaledSize, Dimensions, SafeAreaView, View } from 'react-native';
+import { Dimensions,ScaledSize,  SafeAreaView, View } from 'react-native';
 
 import StyleGlobal from './_Project/resource/style/styleGlobal';
 import Global from './_Project/application/constant/_global';
@@ -14,6 +14,10 @@ export default class App extends React.Component<any, any> {
     };
     private readonly event: any = { // 事件
         change: null // 修改
+    };
+    private readonly animationData: any = { // 动画数据
+    };
+    private readonly animation: any = { // 动画
     };
     
     //---------- 生命周期 Start ----------//

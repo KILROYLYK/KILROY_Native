@@ -1,19 +1,27 @@
-import { StyleSheet } from 'react-native';
+import { Platform, StyleSheet } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
 
 export default StyleSheet.create({
     base: {
-        backgroundColor: Colors.black,
-        color: Colors.white,
-        width: '100%',
+        flex: 1,
         height: '100%',
-        flex: 1
+        backgroundColor: Colors.black,
+        color: Colors.white
     },
     body: {
-        backgroundColor: Colors.black,
-        color: Colors.white,
-        width: '100%',
+        flex: 1,
         height: '100%',
-        flex: 1
+        backgroundColor: Colors.black,
+        color: Colors.white
+    },
+    center: {
+        ...Platform.select({
+            ios: {
+                alignItems: 'center'
+            },
+            android: {
+                textAlignVertical: 'center'
+            }
+        })
     }
 });

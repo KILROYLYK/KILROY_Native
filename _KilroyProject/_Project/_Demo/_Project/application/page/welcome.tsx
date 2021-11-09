@@ -1,6 +1,8 @@
 import React, { ErrorInfo, ReactNode, Component } from 'react';
-import { StyleSheet, Animated, View, Text } from 'react-native';
+import { StyleSheet, Animated, View, SafeAreaView, Text } from 'react-native';
 import { Colors } from 'react-native/Libraries/NewAppScreen';
+
+import StyleGlobal from '../../../_Project/resource/style/styleGlobal';
 
 /**
  * 欢迎页
@@ -11,16 +13,20 @@ export default class Welcome extends Component<any, any> {
     };
     private readonly event: any = { // 事件
     };
+    private readonly animationData: any = { // 动画数据
+        delay: 50, // 延时
+        wait: 2000, // 等待
+        transition: 300 // 过渡
+    };
+    private readonly animation: any = { // 动画
+    };
     
     //---------- 生命周期 Start ----------//
     /**
      * 组件挂载
      */
     public componentDidMount(): void {
-        this.titleFade(500);
-        setTimeout(() => {
-            this.titleFade(500, false);
-        }, 2000);
+        this.playAnimation();
     }
     
     /**
@@ -61,26 +67,38 @@ export default class Welcome extends Component<any, any> {
      */
     public render(): ReactNode {
         return <View style={ style.container }>
-            <Animated.View style={ [
-                style.titleAnim,
-                { opacity: this.state.titleFade }
+            <SafeAreaView style={ [
+                StyleGlobal.center,
+                style.containerSafe
             ] }>
-                <Text style={ [ style.title ] }>KILROY</Text>
-            </Animated.View>
+                <Animated.View style={ [
+                    style.titleAnim,
+                    { opacity: this.state.titleFade }
+                ] }>
+                    <Text style={ style.title }>KILROY</Text>
+                </Animated.View>
+            </SafeAreaView>
         </View>
     }
     
     /**
-     * 标题淡入淡出
-     * @param {number} time 时间
-     * @param {boolean} isShow 是否显示
+     * 播放动画
      */
-    private titleFade(time: number, isShow: boolean = true): void {
-        Animated.timing(this.state.titleFade, {
-            useNativeDriver: true,
-            toValue: isShow ? 1 : 0,
-            duration: time
-        }).start();
+    private playAnimation(): void {
+        Animated.sequence([
+            Animated.delay(this.animationData.delay),
+            Animated.timing(this.state.titleFade, {
+                useNativeDriver: true,
+                toValue: 1,
+                duration: this.animationData.transition
+            }),
+            Animated.delay(this.animationData.wait),
+            Animated.timing(this.state.titleFade, {
+                useNativeDriver: true,
+                toValue: 0,
+                duration: this.animationData.transition
+            })
+        ]).start();
     }
 }
 
@@ -89,23 +107,26 @@ export default class Welcome extends Component<any, any> {
  */
 const style = StyleSheet.create({
     container: {
-        backgroundColor: Colors.black,
-        height: '100%'
+        height: '100%',
+        backgroundColor: Colors.black
+    },
+    containerSafe: {
+        height: '100%',
+        justifyContent: 'center'
     },
     titleAnim: {
-        width: '100%',
-        marginTop: 150,
+        width: 220,
+        height: 60,
+        marginTop: -100
     },
     title: {
-        width: '100%',
-        textAlign: 'center',
-        alignItems: 'center',
+        height: 60,
         justifyContent: 'center',
-        textAlignVertical: 'center',
-        color: Colors.white,
         textShadowColor: Colors.white,
         textShadowRadius: 10,
+        textAlign: 'center',
         lineHeight: 60,
+        color: Colors.white,
         fontSize: 50,
         fontWeight: 'bold'
     }
