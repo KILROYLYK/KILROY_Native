@@ -1,5 +1,5 @@
-import React from 'react';
-import { Dimensions,ScaledSize,  SafeAreaView, View } from 'react-native';
+import React, { ErrorInfo, ReactNode, Component } from 'react';
+import { Dimensions, ScaledSize, SafeAreaView, View } from 'react-native';
 
 import StyleGlobal from './_Project/resource/style/styleGlobal';
 import Global from './_Project/application/constant/_global';
@@ -8,7 +8,7 @@ import PageWelcome from './_Project/application/page/welcome';
 /**
  * 应用
  */
-export default class App extends React.Component<any, any> {
+export default class App extends Component<any, any> {
     public readonly state: any = { // 状态
         page: PageWelcome // 页面
     };
@@ -25,6 +25,7 @@ export default class App extends React.Component<any, any> {
      * 组件挂载
      */
     public componentDidMount(): void {
+        Global.AppState = this.state;
         this.event.change = Dimensions.addEventListener('change', (info: { screen: ScaledSize, window: ScaledSize }) => {
             Global.WindowWidth = info.window.width;
             Global.WindowHeight = info.window.height;
@@ -57,9 +58,9 @@ export default class App extends React.Component<any, any> {
     /**
      * 组件报错
      * @param {Error} error 错误
-     * @param {React.ErrorInfo} errorInfo 错误信息
+     * @param {ErrorInfo} errorInfo 错误信息
      */
-    // public componentDidCatch(error: Error, errorInfo: React.ErrorInfo): void {
+    // public componentDidCatch(error: Error, errorInfo: ErrorInfo): void {
     // }
     
     //---------- 生命周期 End ----------//
@@ -68,7 +69,7 @@ export default class App extends React.Component<any, any> {
      * 渲染
      * @return {ReactNode} 内容
      */
-    public render(): React.ReactNode {
+    public render(): ReactNode {
         return <SafeAreaView style={ StyleGlobal.base }>
             <View style={ StyleGlobal.body }>
                 <this.state.page />
